@@ -1,0 +1,27 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: main
+    src: .
+    engine: custom
+    public: true
+    primary: true
+    presets:
+      env:
+        - name: DENO_DIR
+          description: Deno configuration directory (do not change /tmp)
+          default: /tmp/deno_dir
+        - name: SUPABASE_PROJECT_URL
+          default: ""
+        - name: SUPABASE_KEY
+          default: ""
+    dev: deno run -A main.ts
+    commands:
+      - curl -fSL https://github.com/denoland/deno/releases/download/v1.38.5/deno-x86_64-unknown-linux-gnu.zip -o deno.zip
+      - unzip -d ./ -o deno.zip
+      - chmod +x ./deno
+      - ./deno bundle --unstable main.ts bundle.ts
+    include:
+      - deno
+      - bundle.ts
+    run: ./deno run -A bundle.ts

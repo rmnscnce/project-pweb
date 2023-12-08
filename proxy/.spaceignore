@@ -1,0 +1,5 @@
+.env*
+deno.json
+deno.lock
+.gitignore
+Spacefile.example
